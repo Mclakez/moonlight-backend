@@ -13,6 +13,8 @@ import lessonRoutes from './routes/lessonRoutes.js'
 import assignmentRoutes from './routes/assignmentRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
 import certificateRoutes from './routes/certificateRoutes.js'
+import paymentRoutes from './routes/paymentRoutes.js'
+import postRoutes from './routes/postRoutes.js'
 dotenv.config()
 connectDB()
 
@@ -26,7 +28,11 @@ app.use(cors({
   credentials: true,
 }))
 
+app.use('/api/payments/webhook', express.raw({ type: 'application/json' }))
+
 app.use(express.json())
+
+
 
 app.use('/api/auth', authRoutes)
 app.use('/api/courses', courseRoutes)
@@ -37,6 +43,8 @@ app.use('/api/lessons', lessonRoutes)
 app.use('/api/assignments', assignmentRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/certificates', certificateRoutes)
+app.use('/api/payments', paymentRoutes)
+app.use('/api/posts', postRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
