@@ -2,7 +2,6 @@ import PDFDocument from 'pdfkit'
 import Certificate from '../models/CertificateModel.js'
 import Enrollment from '../models/EnrollmentModel.js'
 import Course from '../models/CourseModel.js'
-import User from '../models/UserModel.js'
 import generateCertificatePDF from '../utils/generateCertificatePDF.js'
 
 // ─── GENERATE CERTIFICATE ─────────────────────────────────────
