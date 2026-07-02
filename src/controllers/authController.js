@@ -157,16 +157,18 @@ export const forgotPassword = async (req, res) => {
     })
   } catch (error) {
     // if email fails, clear the token so user can try again
-    if (error.message.includes('mail')) {
-      await User.updateOne(
-        { email: req.body.email },
-        {
-          resetPasswordToken: undefined,
-          resetPasswordExpire: undefined,
-        }
-      )
-    }
-    res.status(500).json({ message: 'Server error', error: error.message })
+    console.log('Forgot password error:', error.message)
+  
+  if (error.message.includes('mail') || error.code === 'ECONNECTION') {
+    await User.updateOne(
+      { email: req.body.email },
+      {
+        resetPasswordToken: undefined,
+        resetPasswordExpire: undefined,
+      }
+    )
+  }
+  res.status(500).json({ message: 'Server error', error: error.message })
   }
 }
 
