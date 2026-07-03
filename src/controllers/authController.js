@@ -156,10 +156,8 @@ export const forgotPassword = async (req, res) => {
       message: 'If that email exists, a reset link has been sent',
     })
   } catch (error) {
-    // if email fails, clear the token so user can try again
-    console.log('Forgot password error:', error.message)
-  
-  if (error.message.includes('mail') || error.code === 'ECONNECTION') {
+    console.error('Forgot password error:', error.message)
+
     await User.updateOne(
       { email: req.body.email },
       {
@@ -167,8 +165,10 @@ export const forgotPassword = async (req, res) => {
         resetPasswordExpire: undefined,
       }
     )
-  }
-  res.status(500).json({ message: 'Server error', error: error.message })
+
+    res.status(503).json({
+      message: 'Password reset email could not be sent right now. Please try again later.',
+    })
   }
 }
 
