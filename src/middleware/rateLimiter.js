@@ -25,7 +25,7 @@ export const loginLimiter = rateLimit({
 // stricter limiter for forgot password
 export const forgotPasswordLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 3, // only 3 attempts per hour
+  max: 5, // only 5 attempts per hour
   message: {
     message: 'Too many password reset requests, please try again after an hour',
   },
